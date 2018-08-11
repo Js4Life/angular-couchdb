@@ -1,6 +1,11 @@
-import { TestBed, ComponentFixture } from '@angular/core/testing';
-import { By } from '@angular/platform-browser';
-import { DebugElement } from '@angular/core';
+import {TestBed,ComponentFixture} from '@angular/core/testing';
+import {By} from '@angular/platform-browser';
+import {DebugElement, Component} from '@angular/core';
+
+// testbed -- intest class and resolve what components need
+// componentfixture - acts component and state
+// By -- css and html selectives
+// debugelement -- access DOM structure
 
 import { NgModule, ErrorHandler } from '@angular/core';
 import { FormsModule } from '@angular/forms';
@@ -13,32 +18,41 @@ import { XyzUserListComponent }  from './user-list/user-list.component';
 
 import { XyzErrorHandlerService } from './shared/error-handler.service';
 
-import { APP_BASE_HREF } from '@angular/common';
+import {APP_BASE_HREF} from '@angular/common'
 
 describe('AppComponent', () => {
-    let component: ComponentFixture<AppComponent>;
-    let element: DebugElement;
-    let html: HTMLElement;
 
+    let component : ComponentFixture<AppComponent>;
+    let element : DebugElement;
+    let html : HTMLElement; // all EVENTS CLICK
+
+    // built in jasmine Function before each and callback are used in testbed
     beforeEach(() => {
-        TestBed.configureTestingModule({
-            imports: [ BrowserModule, FormsModule, HttpModule, routing ],
-            declarations: [ AppComponent, XyzUserListComponent ],
-            providers: [
-                { provide: APP_BASE_HREF, useValue: '/' }
-            ]
-        })
+            TestBed.configureTestingModule({
+          
+                // copy from app.module.ts
 
-        component = TestBed.createComponent(AppComponent);
+                imports: [ BrowserModule, FormsModule, HttpModule, routing ],
+                declarations: [ AppComponent, XyzUserListComponent ],
+                providers: [{
+                    provide:APP_BASE_HREF,useValue:'/'
+                }]
+            })
+
+            component = TestBed.createComponent(AppComponent)
     })
 
-    it('should have a title', () => {
-        let title = 'Users Online Now';
+    it(' should have title', () => {
+        let title = 'Users Online Now'
 
         component.detectChanges();
-        element = component.debugElement.query(By.css('h2'));
+
+        element = component.debugElement.query(By.css('h2')); 
+
         html = element.nativeElement;
 
         expect(html.innerText).toBe(title);
+
     })
+
 })
